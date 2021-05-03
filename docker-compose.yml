@@ -1,0 +1,14 @@
+version: "3.8" #Es la versión de docker-compose, pueden variar sus funcionalidades
+
+services:
+  app:
+    image: platziapp
+    environment: #Variables de entorno
+      MONGO_URL: "mongodb://db:27017/test"
+    depends_on: #Indica que el servicio app depende de db
+      - db
+    ports:
+      - "3000:3000" # Expone el puerto 3000 y se relaciona con el puerto 3000 de app
+
+  db:
+    image: mongo
