@@ -2,13 +2,17 @@ version: "3.8" #Es la versión de docker-compose, pueden variar sus funcionalida
 
 services:
   app:
-    image: platziapp
+    build: .
     environment: #Variables de entorno
       MONGO_URL: "mongodb://db:27017/test"
     depends_on: #Indica que el servicio app depende de db
       - db
     ports:
       - "3000:3000" # Expone el puerto 3000 y se relaciona con el puerto 3000 de app
+    volumes:
+      - .:/usr/src # Genera un volumen que conecta el directorio actual con la ruta usr/src del contenedor
+      - /usr/src/node_modules # Si se monta algo, ignora esta ruta del origen y mantenla en el destino/contenedor
+    command: npx nodemon -L index.js # Se reescribe el comando al inicio del contenedor, se usa npx porque nodemon esta como dependencia
 
   db:
     image: mongo
