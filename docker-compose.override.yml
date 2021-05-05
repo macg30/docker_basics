@@ -1,0 +1,7 @@
+version: "3.8" #Es la versión de docker-compose, pueden variar sus funcionalidades
+
+services:
+    app:
+        build: .
+        environment: #Variables de entorno
+            UNA_VARIABLE: "Hola Platzi"
